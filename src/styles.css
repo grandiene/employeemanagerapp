@@ -1,0 +1,108 @@
+@import 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css';
+@import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
+
+body {
+  background: #f5f5f5;
+}
+
+a {
+  cursor: pointer;
+}
+
+.navbar {
+  margin-bottom: 30px;
+  height: 100px;
+}
+
+.card {
+  border: none;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+  margin-bottom: 30px;
+}
+
+.w-60 {
+  width: 60px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+.social-links li a {
+  -webkit-border-radius: 50%;
+  background-color: rgba(89, 206, 181, .85);
+  border-radius: 50%;
+  color: #fff;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  width: 30px;
+  font-size: 12px;
+}
+
+a {
+  color: #707070;
+}
+i {
+color: white;
+}
+
+a {
+color: white;
+}
+.custom-radio .custom-control-label::before {
+  border-radius: 50%;
+}
+
+.custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+.custom-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color: rgba(0, 123, 255, 0.5);
+}
+
+
+.custom-control {
+  position: relative;
+  z-index: 1;
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.5rem;
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
+}
+
+.table a.table-link.danger {
+  color: #e74c3c;
+}
+
+.table thead tr th {
+  text-transform: uppercase;
+  font-size: 0.875em;
+}
+.table thead tr th {
+  border-bottom: 2px solid #e7ebee;
+}
+.table tbody tr td:first-child {
+  font-size: 1.125em;
+  font-weight: 300;
+}
+.table tbody tr td {
+  font-size: 0.875em;
+  vertical-align: middle;
+  border-top: 1px solid #e7ebee;
+  padding: 12px 8px;
+}
+a:hover{
+  text-decoration:none;
+}
+

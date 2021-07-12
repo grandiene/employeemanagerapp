@@ -1,0 +1,267 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <h1  style="color:white; margin: auto">Master Karyawan</h1>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+          aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+</nav>
+<div class="container" id="main-container">
+  <!--      <div class="card m-b-30">-->
+  <!--        <div class="card-body row">-->
+  <!--          <div class="col-6">-->
+  <!--            &lt;!&ndash;            <a href=""><img src="{{employee?.imageUrl}}" alt="" class="img-fluid rounded-circle w-60"></a>&ndash;&gt;-->
+  <!--          </div>-->
+  <!--          <div class="col-6 card-title align-self-center mb-0">-->
+  <!--            <h5>{{employee?.name}}</h5>-->
+  <!--            <p class="m-0">{{employee?.birthdate}}</p>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--        <ul class="list-group list-group-flush">-->
+  <!--          <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{employee?.gender}}</li>-->
+  <!--          <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{employee?.positionName}}</li>-->
+  <!--        </ul>-->
+  <!--        <div class="card-body">-->
+  <!--          <div class="float-right btn-group btn-group-sm">-->
+  <!--            <a (click)="onOpenModal(employee, 'edit')" class="btn btn-primary tooltips" data-placement="top"-->
+  <!--               data-original-title="Edit"><i class="fa fa-pencil"></i> </a>-->
+  <!--            <a (click)="onOpenModal(employee, 'delete')" class="btn btn-secondary tooltips" data-placement="top"-->
+  <!--               data-original-title="Delete"><i class="fa fa-times"></i></a>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+
+  <div class="col-md-12">
+    <div class="main-box no-header clearfix">
+      <div class="main-box-body clearfix">
+        <div>
+          <h4>List Karyawan</h4>
+        </div>
+        <hr>
+        <div class="btn btn-primary" style="margin-bottom: 20px; background: #707070; border: none">
+          <a class="nav-link" (click)="onOpenModal(null, 'add')">Tambah Karyawan <span class="sr-only">(current)</span></a>
+        </div>
+        <div class="table-responsive">
+          <table class="table user-list">
+            <thead>
+            <tr>
+              <th><span>Id</span></th>
+              <th><span>Nama</span></th>
+              <th><span>Tanggal Lahir</span></th>
+              <th class="text-center"><span>Jabatan</span></th>
+              <th><span>NIP</span></th>
+              <th><span>Jenis Kelamin</span></th>
+              <th><span>Action</span></th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let employee of employees">
+            <tr>
+              <td>
+                <span>{{employee.id}}</span>
+              </td>
+              <td>
+                <span>{{employee.name}}</span>
+              </td>
+              <td>{{employee.birthDate}}</td>
+              <td class="text-center">
+                <span>{{employee.position.positionName}}</span>
+              </td>
+              <td>
+                <span>{{employee.nip}}</span>
+              </td>
+              <td>
+                <span>{{employee.gender}}</span>
+              </td>
+              <td style="width: 20%;">
+                <a (click)="onOpenModal(employee, 'edit')" class="btn btn-primary tooltips" data-placement="top"
+                   data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                <a (click)="onOpenModal(employee, 'delete')" class="btn btn-danger tooltips" data-placement="top"
+                   data-original-title="Delete"><i class="fa fa-times "></i></a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Employee Modal -->
+  <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEmployeeModalLabel">Tambah Karyawan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddEmloyee(addForm)">
+
+            <div class="form-group">
+              <label for="id">ID</label>
+              <input type="number" ngModel name="id" class="form-control" id="id" placeholder="Masukkan ID"
+              >
+            </div>
+            <div class="form-group">
+              <label for="name">Nama</label>
+              <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Masukkan Nama" required>
+            </div>
+            <div class="form-group">
+              <label for="birthDate">Tanggal Lahir</label>
+              <input type="date" ngModel name="birthDate" class="form-control" id="birthDate" placeholder="Birth Date"
+                     required>
+            </div>
+            <div class="form-group">
+              <label for="DDPosition">Jabatan</label>
+              <!-- DropDownList -->
+              <select class="custom-select" name="idPosition" id="DDPosition" [(ngModel)]="ddlPosition"
+                      #DDPosition="ngModel"
+                      required>
+                <option value="" class="text-primary font-weight-bolder">
+                  --- Pilih Jabatan ---
+                </option>
+                <option *ngFor="let Position of Positions" [value]="Position.id">
+                  {{Position.positionName}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="nip">NIP</label>
+              <input type="number" ngModel name="nip" class="form-control" id="nip" placeholder="NIP" required>
+            </div>
+            <div class="form-group">
+              <label>Jenis Kelamin</label>
+              <div class="custom-control custom-radio">
+
+                <input type="radio" ngModel name="gender" class="form-check-input" id="male" value="Laki-laki"
+                       required>
+                <label for="male" class="form-check-label">Laki-laki</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" ngModel name="gender" class="form-check-input" id="female" value="Perempuan"
+                       required>
+                <label for="female" class="form-check-label">Perempuan</label>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Kembali
+              </button>
+              <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog"
+       aria-labelledby="employeeEditModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Karyawan {{editEmployee?.name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm" (ngSubmit)="onUpdateEmloyee(editForm)">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" ngModel="{{editEmployee?.name}}" name="name" class="form-control" id="name"
+                     aria-describedby="emailHelp" placeholder="Nama Karyawan">
+            </div>
+            <input type="hidden" ngModel="{{editEmployee?.id}}" name="id" class="form-control" id="id"
+            >
+            <input type="hidden" ngModel="{{editEmployee?.isDelete}}" name="isDelete" class="form-control" id="isDelete" value="0"
+            >
+            <div class="form-group">
+              <label for="birthDate">Tanggal Lahir</label>
+              <input type="date" ngModel="{{editEmployee?.birthDate}}" name="birthDate" class="form-control" id="birthDate"
+                     placeholder="Birth Date"
+                     required>
+            </div>
+            <div class="form-group">
+              <label for="DDPosition">Jabatan</label>
+              <!-- DropDownList -->
+              <select class="custom-select" name="idPosition" id="idPosition" [(ngModel)]="ddlPosition"
+                      #DDPosition="ngModel"
+                      [ngClass]="{ 'is-invalid': addForm.submitted && DDPosition.invalid }" required>
+                <option value="" class="text-primary font-weight-bolder">
+                  --- Pilih Jabatan ---
+                </option>
+                <option *ngFor="let Position of Positions" [value]="Position.id">
+                  {{Position.positionName}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="nip">NIP</label>
+              <input type="number" ngModel="{{editEmployee?.nip}}" name="nip" class="form-control" id="nip"
+                     placeholder="NIP" required>
+            </div>
+            <div class="form-group">
+              <label>Jenis Kelamin</label>
+              <div class="custom-control custom-radio">
+
+                <input type="radio" ngModel name="gender" class="form-check-input" id="malee" value="Laki-laki"
+                       required>
+                <label for="malee" class="form-check-label">Laki-laki</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" ngModel name="gender" class="form-check-input" id="femalee" value="Perempuan"
+                       required>
+                <label for="femalee" class="form-check-label">Perempuan</label>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" id="edit-employee-form" class="btn btn-secondary" data-dismiss="modal">Kembali
+              </button>
+              <button [disabled]="editForm.invalid" type="submit" class="btn btn-primary">Simpan</button>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModelLabel">Hapus Karyawan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Apakah Anda yakin ingin menghapus {{deleteEmployee?.name}}?</p>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+            <button (click)="onDeleteEmloyee(deleteEmployee?.id, editForm.value)" class="btn btn-danger"
+                    data-dismiss="modal">Ya
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notification for no employees -->
+<div *ngIf="employees?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">TAK ADA DATA KARYAWAN!</h4>
+    <p>Tidak ada data karyawan untuk ditampilkan.</p>
+  </div>
+</div>
